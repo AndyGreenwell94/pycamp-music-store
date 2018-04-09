@@ -7,6 +7,11 @@ sudo: required
 services:
   - docker
 
+branches:
+  only:
+    - develop
+    - feature/travis-ci-start
+
 before_install:
   # Let's stop postgresql
   - sudo service postgresql stop
@@ -41,5 +46,8 @@ deploy:
   provider: heroku
   app: musicstore
   api_key: 11fd19bd-ec5c-4a59-afee-bda09387194c
-  #on: production
-  run: docker-compose up web redis postrges
+  on:
+    - develop
+    - feature/travis-ci-start
+  run:
+    - docker-compose up web redis postrges
