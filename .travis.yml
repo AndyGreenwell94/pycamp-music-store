@@ -27,14 +27,16 @@ install:
   - docker-compose build web postgres redis
   #- docker-compose up web postgres redis
 
+
+before_script:
   - docker-compose run --rm web python3 manage.py makemigrations
   - docker-compose run --rm web python3 manage.py migrate
-
   - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
 
+#script:
+#  - docker-compose run --rm web python3 manage.py runserver_plus 0.0.0.0:8000  --reloader-type stat --pm
 
-#before_script:
-#  - fab django.migrate
-
-script:
-  - docker-compose run --rm web python3 manage.py runserver_plus 0.0.0.0:8000  --reloader-type stat --pm
+deploy:
+  provider: heroku
+  api_key: "11fd19bd-ec5c-4a59-afee-bda09387194c"
+  #on: production
