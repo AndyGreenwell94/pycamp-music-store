@@ -14,10 +14,10 @@ before_install:
   - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
 
 install:
-  - docker login --username $DOCKER_LOGIN --password $DOCKER_PASSWORD docker.saritasa.com
+  - docker login docker.saritasa.com --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
   - pip install -r .travis-requirements.txt
   - fab project.init < .travis-superuser.txt
-  - fab project.build
+  - MUSIC_STORE_EXERCISE_ENVIRONMENT=local
 
 before_script:
   - fab django.migrate
