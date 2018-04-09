@@ -16,12 +16,22 @@ before_install:
 install:
   - docker login docker.saritasa.com --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
   - pip install -r .travis-requirements.txt
-  - docker-compose rm -f
-  - fab project.init < .travis-superuser.txt
-  - MUSIC_STORE_EXERCISE_ENVIRONMENT=local
 
-before_script:
-  - fab django.migrate
+  # Compile pip dependencies
+  - pip-compile --output-file requirements/development.txt requirements/development.in
+  - pip-compile --output-file requirements/production.txt requirements/production.in
+  - pip install --upgrade setuptools pip
+
+  - docker-compose up web postgres redis
+
+  - docker-compose run --rm web python3 manage.py makemigrations
+  - docker-compose run --rm web python3 manage.py migrate
+
+  - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
+
+
+#before_script:
+#  - fab django.migrate
 
 script:
-  - fab django.run
+  - docker-compose run --rm web python3 manage.py runserver_plus 0.0.0.0:8000  --reloader-type stat --pm
