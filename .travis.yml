@@ -22,6 +22,8 @@ install:
   - pip-compile --output-file requirements/production.txt requirements/production.in
   - pip install --upgrade setuptools pip
 
+  - cp config/settings/local.py.template config/settings/local.py
+
   - docker-compose build web postgres redis
   - docker-compose up web postgres redis
 
