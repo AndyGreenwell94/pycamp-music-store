@@ -1,0 +1,16 @@
+language: python
+
+sudo: required
+
+services:
+  - docker
+
+install:
+  - pip install fabric
+  - fab project.build
+
+before_script:
+  - fab django.migrate
+
+script:
+  - fab django.run
