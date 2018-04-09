@@ -25,7 +25,7 @@ install:
   - cp config/settings/local.py.template config/settings/local.py
 
   - docker-compose build web postgres redis
-  - docker-compose up web postgres redis
+  #- docker-compose up web postgres redis
 
   - docker-compose run --rm web python3 manage.py makemigrations
   - docker-compose run --rm web python3 manage.py migrate
