@@ -1,0 +1,3 @@
+fabric3
+configparser
+pip-tools
