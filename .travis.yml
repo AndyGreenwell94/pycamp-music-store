@@ -15,8 +15,8 @@ before_install:
 
 install:
   - docker login --username $DOCKER_LOGIN --password $DOCKER_PASSWORD docker.saritasa.com
-  - pip install -r requirements-travis.txt
-  - fab project.init
+  - pip install -r .travis-requirements.txt
+  - fab project.init < .travis-superuser.txt
   - fab project.build
 
 before_script:
