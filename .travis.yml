@@ -40,3 +40,4 @@ deploy:
   provider: heroku
   api_key: "11fd19bd-ec5c-4a59-afee-bda09387194c"
   #on: production
+  run: docker-compose up web redis postrges
