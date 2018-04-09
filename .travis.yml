@@ -22,6 +22,7 @@ install:
   - pip-compile --output-file requirements/production.txt requirements/production.in
   - pip install --upgrade setuptools pip
 
+  - docker-compose build web postgres redis
   - docker-compose up web postgres redis
 
   - docker-compose run --rm web python3 manage.py makemigrations
