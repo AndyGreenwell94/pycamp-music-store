@@ -10,6 +10,7 @@ services:
 install:
   - pip install fabric3
   - pip install configparser
+  - pip install pip-compile
   - fab project.init
   - fab project.build
 
