@@ -8,9 +8,8 @@ services:
   - docker
 
 install:
-  - pip install fabric3
-  - pip install configparser
-  - pip install pip-tools
+  - docker login --username DOCKER_LOGIN --password DOCKER_PASSWORD
+  - pip install -r requirements-travis.txt
   - fab project.init
   - fab project.build
 
