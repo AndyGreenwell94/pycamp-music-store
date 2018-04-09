@@ -16,7 +16,7 @@ before_install:
 install:
   - docker login docker.saritasa.com --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
   - pip install -r .travis-requirements.txt
-  - docker-compose rm -s -f
+  - docker-compose rm -f
   - fab project.init < .travis-superuser.txt
   - MUSIC_STORE_EXERCISE_ENVIRONMENT=local
 
