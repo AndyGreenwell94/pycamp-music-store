@@ -30,7 +30,6 @@ install:
   - cp config/settings/local.py.template config/settings/local.py
 
   - docker-compose build web postgres redis
-  #- docker-compose up web postgres redis
 
 
 before_script:
@@ -44,6 +43,7 @@ script:
 
 deploy:
   provider: heroku
+  buildpack: python
   app: musicstore
   api_key: 11fd19bd-ec5c-4a59-afee-bda09387194c
   on:
