@@ -6,11 +6,11 @@ ENVIRONMENT = 'development'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': '%DB_NAME%',
-        'USER': '%DB_USER%',
-        'PASSWORD': '%DB_PASSWORD%',
-        'HOST': '%DB_HOST%',
-        'PORT': '%DB_PORT%',
+        'NAME': 'd1dirur6b5tlk',
+        'USER': 'xnyswqgvwkvedh',
+        'PASSWORD': '6c5410741ab77583335b333979fca55e79c98acd174b42c451bd50255ca67baa',
+        'HOST': 'ec2-54-204-21-226.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -48,12 +48,12 @@ DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = '%EMAIL_HOST%'
-EMAIL_HOST_USER = '%EMAIL_HOST_USER%'
-EMAIL_HOST_PASSWORD = '%EMAIL_HOST_PASSWORD%'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = '%EMAIL_HOST%'
+# EMAIL_HOST_USER = '%EMAIL_HOST_USER%'
+# EMAIL_HOST_PASSWORD = '%EMAIL_HOST_PASSWORD%'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
 
 
 # PUSH Notifications
@@ -95,29 +95,20 @@ PROJECT_APPS = LOCAL_APPS
 
 
 # Celery config
-CELERY_TASK_DEFAULT_QUEUE = '%CELERY_QUEUE%'.format(
-    ENVIRONMENT=ENVIRONMENT)
-CELERY_BROKER = ('amqp://%RABBITMQ_USER%:%RABBITMQ_HOST%@%'
-                 'RABBITMQ_HOST%/%CELERY_QUEUE%').format(
-                     ENVIRONMENT=ENVIRONMENT)
-CELERY_BACKEND = 'redis://%REDIS_HOST%/%REDIS_DB%'
+# CELERY_TASK_DEFAULT_QUEUE = '%CELERY_QUEUE%'.format(
+#     ENVIRONMENT=ENVIRONMENT)
+# CELERY_BROKER = ('amqp://%RABBITMQ_USER%:%RABBITMQ_HOST%@%'
+#                  'RABBITMQ_HOST%/%CELERY_QUEUE%').format(
+#                      ENVIRONMENT=ENVIRONMENT)
+# CELERY_BACKEND = 'redis://%REDIS_HOST%/%REDIS_DB%'
 
 
 # Cache ops
-CACHEOPS_REDIS = {
-    'host': '%REDIS_HOST%', # redis-server is on same machine
-    'port': 6379,           # default redis port
-    'db': 1,                # SELECT non-default redis database
-                            # using separate redis db or redis instance
-                            # is highly recommended
-    'socket_timeout': 3     # connection timeout in seconds, optional
-}
-
-
-# for heroku
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
-DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
-
-GDAL_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH')
-GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH')
+# CACHEOPS_REDIS = {
+#     'host': '%REDIS_HOST%', # redis-server is on same machine
+#     'port': 6379,           # default redis port
+#     'db': 1,                # SELECT non-default redis database
+#                             # using separate redis db or redis instance
+#                             # is highly recommended
+#     'socket_timeout': 3     # connection timeout in seconds, optional
+# }
