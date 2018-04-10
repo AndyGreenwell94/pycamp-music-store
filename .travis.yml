@@ -55,5 +55,7 @@ deploy:
     all_branches: true
     python: "3.6"
   run:
-    - docker-compose up web redis postrges
+    - python3 manage.py syncdb --noinput
+    - python3 manage.py migrate --all
+    - python3 manage.py runserver_plus 0.0.0.0:8000  --reloader-type stat --pm
 
