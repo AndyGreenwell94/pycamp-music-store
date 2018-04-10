@@ -28,3 +28,5 @@ ADD .docker/rootfs /
 
 ### Add source code to container
 ADD . /home/www/app/
+
+CMD /bin/bash -c "envsubst '\${PORT}' < /home/www/app/app.ini.template > /home/www/app/app.ini"
