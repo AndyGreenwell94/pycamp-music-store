@@ -45,6 +45,12 @@ before_script:
 script:
   - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
 
+after_script:
+  - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
+  # - docker build -t registry.heroku.com/$HEROKU_APP_NAME/web .
+  - docker tag web registry.heroku.com/$HEROKU_APP_NAME/web
+  - docker push registry.heroku.com/$HEROKU_APP_NAME/web
+
 deploy:
   provider: heroku
   buildpack: python
