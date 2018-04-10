@@ -1,13 +1,13 @@
 [uwsgi]
-socket         = /tmp/wsgi.sock
-chmod-socket   = 666
+socket         = 127.0.0.1:${PORT}
+#chmod-socket   = 666
 chdir          = /home/www/app
 module         = config.wsgi:application
 
 master         = true
 processes      = 4
 vacuum         = true
-harakiri       = 30 
+harakiri       = 30
 max-requests   = 10000
 
 memory-report  = true

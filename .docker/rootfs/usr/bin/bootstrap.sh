@@ -19,6 +19,9 @@ python3 manage.py migrate --noinput
 # update CSS/JS in static folder
 python3 manage.py collectstatic --noinput
 
+# replace env vars
+envsubst '${PORT}' < /home/www/app/app.ini.template > /home/www/app/app.ini
+
 # Store the build date and release version
 echo `date` >> /home/www/builds
 echo "__builddate__ = '`date`'" >> /home/www/app/__version__.py
@@ -26,15 +29,15 @@ echo "__builddate__ = '`date`'" >> /home/www/app/__version__.py
 ### Starting supervisord services
 
 
-echo "Starting Celery worker..."
-supervisorctl start celery_worker
+#echo "Starting Celery worker..."
+#supervisorctl start celery_worker
 
-echo "Starting Celery beat..."
-supervisorctl start celery_beat
+#echo "Starting Celery beat..."
+#supervisorctl start celery_beat
 
 
-echo "Starting NGINX..."
-supervisorctl start nginx
+#echo "Starting NGINX..."
+#supervisorctl start nginx
 
 echo "Starting UWSGI..."
 supervisorctl start api

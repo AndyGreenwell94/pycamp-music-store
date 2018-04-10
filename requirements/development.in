@@ -67,6 +67,3 @@ tblib
 # fabfile tools
 fabric3
 munch
-
-# heroku
-dj_database_url

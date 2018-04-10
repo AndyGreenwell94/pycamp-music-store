@@ -97,11 +97,11 @@ services:
     entrypoint: .docker/docker-entrypoint.sh postgres
     depends_on:
       - postgres
-      - redis
+    #  - redis
     links:
       - postgres
-      - redis
-      - rabbitmq
+    #  - redis
+    #  - rabbitmq
 
   # ################################################################################
   # Documentation

@@ -1,6 +1,6 @@
 language: python
 python:
-    - "3.6"
+  - "3.6"
 
 sudo: required
 
@@ -16,57 +16,25 @@ branches:
     - feature/travis-ci-start
 
 before_install:
-  # Let's stop postgresql
-  - sudo service postgresql stop
-  # wait for postgresql to shutdown
-  - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
-
-install:
-  - docker login docker.saritasa.com --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
   - pip install -r .travis-requirements.txt
 
+install:
   # Compile pip dependencies
   - pip-compile --output-file requirements/development.txt requirements/development.in
   - pip-compile --output-file requirements/production.txt requirements/production.in
   - pip install --upgrade setuptools pip
-
   - cp config/settings/local.py.template config/settings/local.py
 
-  - docker-compose build web postgres redis
-
-
 before_script:
+  - docker login docker.saritasa.com --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
+  - docker-compose build web
   - docker-compose run --rm web python3 manage.py makemigrations
   - docker-compose run --rm web python3 manage.py migrate
-  - cp requirements/development.txt requirements.txt
-
-  #- docker-compose run --rm web python3 manage.py runserver_plus 0.0.0.0:8000  --reloader-type stat --pm
 
 script:
   - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
 
 after_success:
-  - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
-  # - docker build -t registry.heroku.com/$HEROKU_APP_NAME/web .
-  # web
-  - docker tag musicstoreexercise_web registry.heroku.com/$HEROKU_APP_NAME/web
-  - docker push registry.heroku.com/$HEROKU_APP_NAME/web
-  # postgis
-  - docker tag mdillon/postgis registry.heroku.com/$HEROKU_APP_NAME/postgres
-  - docker push registry.heroku.com/$HEROKU_APP_NAME/postgres
-
-deploy:
-  provider: heroku
-  buildpack: python
-  app: $HEROKU_APP_NAME
-  api_key: $HEROKU_TOKEN
-  skip_cleanup: true
-  on:
-    all_branches: true
-    python: "3.6"
-  run:
-    # - "pip install -r requirements.txt"
-    - "python3 manage.py migrate --all"
-    #- "python3 manage.py syncdb --noinput"
-    #- python3 manage.py runserver_plus 0.0.0.0:8000  --reloader-type stat --pm
-
+  # send container to heroku
+  - /usr/local/heroku/bin/heroku heroku container:push musicstoreexercise_web -a musicstore
