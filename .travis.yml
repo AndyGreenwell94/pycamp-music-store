@@ -44,6 +44,7 @@ deploy:
   buildpack: python
   app: musicstore
   api_key: 11fd19bd-ec5c-4a59-afee-bda09387194c
+  #skip_cleanup: true
   on:
     all_branches: true
     python: "3.6"
