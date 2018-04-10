@@ -35,15 +35,12 @@ install:
 before_script:
   - docker-compose run --rm web python3 manage.py makemigrations
   - docker-compose run --rm web python3 manage.py migrate
-  - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
+  - cp requirements/development.txt requirements.txt
 
   #- docker-compose run --rm web python3 manage.py runserver_plus 0.0.0.0:8000  --reloader-type stat --pm
 
 script:
   - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
-
-after_script:
-  - cp requirements/development.txt requirements.txt
 
 deploy:
   provider: heroku
