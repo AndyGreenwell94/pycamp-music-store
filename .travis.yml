@@ -50,11 +50,12 @@ deploy:
   buildpack: python
   app: musicstore
   api_key: 11fd19bd-ec5c-4a59-afee-bda09387194c
+  skip_cleanup: true
   on:
     all_branches: true
     python: "3.6"
   run:
     - "pip install -r requirements.txt"
-    #- "python3 manage.py syncdb --noinput"
     - "python3 manage.py migrate --all"
+    #- "python3 manage.py syncdb --noinput"
     #- python3 manage.py runserver_plus 0.0.0.0:8000  --reloader-type stat --pm
