@@ -37,8 +37,6 @@ before_script:
   - docker-compose run --rm web python3 manage.py migrate
   - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
 
-script:
-  - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
   #- docker-compose run --rm web python3 manage.py runserver_plus 0.0.0.0:8000  --reloader-type stat --pm
 
 deploy:
@@ -48,5 +46,9 @@ deploy:
   api_key: 11fd19bd-ec5c-4a59-afee-bda09387194c
   on:
     all_branches: true
+    python: "3.6"
   run:
     - docker-compose up web redis postrges
+
+script:
+  - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
