@@ -39,6 +39,12 @@ before_script:
 
   #- docker-compose run --rm web python3 manage.py runserver_plus 0.0.0.0:8000  --reloader-type stat --pm
 
+script:
+  - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
+
+after_script:
+  - cp requirements.txt requirements/development.txt
+
 deploy:
   provider: heroku
   buildpack: python
@@ -51,5 +57,3 @@ deploy:
   run:
     - docker-compose up web redis postrges
 
-script:
-  - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
