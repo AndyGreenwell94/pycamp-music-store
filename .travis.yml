@@ -52,7 +52,7 @@ after_success:
   - docker tag musicstoreexercise_web registry.heroku.com/$HEROKU_APP_NAME/web
   - docker push registry.heroku.com/$HEROKU_APP_NAME/web
   # postgis
-  - docker tag musicstoreexercise_postgres registry.heroku.com/$HEROKU_APP_NAME/postgres
+  - docker tag mdillon/postgis registry.heroku.com/$HEROKU_APP_NAME/postgres
   - docker push registry.heroku.com/$HEROKU_APP_NAME/postgres
 
 deploy:
