@@ -4,6 +4,7 @@ FROM docker.saritasa.com/centos7-python361-nginx-uwsgi
 ### Setup run parameters
 EXPOSE 80
 WORKDIR /home/www/app
+CMD "/usr/bin/envsubst '\${PORT}' < /home/www/app/app.ini.template > /home/www/app/app.ini"
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 
 ### Argument for sets django environment
@@ -28,5 +29,3 @@ ADD .docker/rootfs /
 
 ### Add source code to container
 ADD . /home/www/app/
-
-CMD /bin/bash -c "envsubst '\${PORT}' < /home/www/app/app.ini.template > /home/www/app/app.ini"
