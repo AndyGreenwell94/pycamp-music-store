@@ -43,14 +43,14 @@ script:
   - docker-compose run --rm web python3 manage.py test -v 2 --noinput --parallel
 
 after_script:
-  - cp requirements.txt requirements/development.txt
+  - cp requirements/development.txt requirements.txt
 
 deploy:
   provider: heroku
   buildpack: python
   app: musicstore
   api_key: 11fd19bd-ec5c-4a59-afee-bda09387194c
-  #skip_cleanup: true
+  skip_cleanup: true
   on:
     all_branches: true
     python: "3.6"
