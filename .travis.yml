@@ -49,10 +49,10 @@ after_success:
   - docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
   # - docker build -t registry.heroku.com/$HEROKU_APP_NAME/web .
   # web
-  - docker tag musicstoreexercise_web_1 registry.heroku.com/$HEROKU_APP_NAME/web
+  - docker tag musicstoreexercise_web registry.heroku.com/$HEROKU_APP_NAME/web
   - docker push registry.heroku.com/$HEROKU_APP_NAME/web
   # postgis
-  - docker tag musicstoreexercise_postgres_1 registry.heroku.com/$HEROKU_APP_NAME/postgres
+  - docker tag musicstoreexercise_postgres registry.heroku.com/$HEROKU_APP_NAME/postgres
   - docker push registry.heroku.com/$HEROKU_APP_NAME/postgres
 
 deploy:
