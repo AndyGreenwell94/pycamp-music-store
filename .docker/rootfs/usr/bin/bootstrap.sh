@@ -20,7 +20,7 @@ python3 manage.py migrate --noinput
 python3 manage.py collectstatic --noinput
 
 # replace env vars
-/usr/bin/envsubst '\${PORT}' < /home/www/app/app.ini.template > /home/www/app/app.ini
+envsubst '\${PORT}' < /home/www/app/app.ini.template > /home/www/app/app.ini
 #/bin/bash -c "envsubst '\${PORT}' < /home/www/app/app.ini.template > /home/www/app/app.ini"
 
 # Store the build date and release version
